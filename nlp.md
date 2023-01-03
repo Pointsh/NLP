@@ -343,5 +343,7 @@ df_test["Target"] = preds
 df_test["Target"] = df_test["Target"].map(label_encoder.decode)
 submission = df_test.loc[:, ["ID", "Target"]]
 ```
+![캡처](https://user-images.githubusercontent.com/44185037/210364548-8034570e-30b9-4abb-93ae-905c35c1af24.JPG)
+
 정리된 값 제출 결과 0.55012
 이미 종료된 프로젝트지만 약 9등정도의 값을 도출해 냈습니다.
