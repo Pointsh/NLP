@@ -21,7 +21,7 @@ Attention 과정 한번만 사용하는 것이 아니라 여러 Layer를 거쳐�
 
 여기서 **Positional encoding**에 대해 짚고 넘어가겠습니다.
 
-![positional](https://user-images.githubusercontent.com/44185037/210715383-ee5b1199-1b95-431a-843e-aa3469e22466.JPG){: width="60%"",height="40%""}
+![positional](https://user-images.githubusercontent.com/44185037/210715383-ee5b1199-1b95-431a-843e-aa3469e22466.JPG){: .align-center}
 
 ## Positional encoding이란
 - Transformer는 입력된 데이터를 한번에 병렬로 처리해서 속도가 빠르다는 장점이 있습니다.
