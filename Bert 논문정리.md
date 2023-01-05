@@ -8,7 +8,7 @@ BERT: Pre-trainig of Deep Bidirectional Transformers for Language Understanding
 해당 논문의 제목입니다. 해당 논문은 “Attention is all you need(Vaswani et al., 2017)”에서 소개한 **Transformer** 구조를 활용한 언어표현에 관한 논문이라고합니다.
 Transformer에 대한 구조는 아래와 같습니다.
 
-<div align='center'>![트랜스포머 구조](https://user-images.githubusercontent.com/44185037/210715269-a08e3167-1f4d-42b1-93e8-1a3eca136a0e.JPG)</div>
+<div align=center>![트랜스포머 구조](https://user-images.githubusercontent.com/44185037/210715269-a08e3167-1f4d-42b1-93e8-1a3eca136a0e.JPG)</div>
 
 - 트랜스포머는 Attention 기법만 사용하기때문에 RNN,CNN은 전혀 사용하지않습니다.
 그러나 기존의 **seq2seq**의 인코더-디코더 구조는 유지합니다.
