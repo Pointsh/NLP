@@ -118,6 +118,35 @@ squence가 한번에 병렬로 입력되기때문에 단어 순서에 대한 정
     * positional encoding을 거치면 위치 정보가 포함된 최종 input embedding matrix가 만들어집니다.
     * d_model 차원의 초기 입력 input embedding matrix 단어 vector들을 바로 사용하는 것이 아니라 각 단어 vectors로 부터 먼저 Q,K,V vectors를 얻어야합니다.
 
+## Q, K, V vector 얻기
+* 해당 Q, K, V vectors는 초기 입력의 d_model 차원의 단어 vectors보다 더 작은 차원을 갖습니다.
+    -Transformer 논문에서는 d_model=512의 차원을 가졌던 초기 단어 vectors에서 64차원의 Q, K, V vector로 변환하여 사용합니다.
+    -d_model/(num_heads) = Q, K, V vector의 차원
+    -transformer 논문에서는 num_heads를 8로 하여 512/8 = 64로 Q, K, V vector의 차원을 결정합니다.
+
+![image](https://user-images.githubusercontent.com/44185037/210778190-a2284f4f-3e71-4f5a-bbae-8db4bda141fe.png)
+
+* 기존의 512 차원의 벡터로부터 더 작은 vector Q, K, V 를 만들기 위해서는 가중치 행렬을 곱해야 합니다.
+* 가중치 행렬의 크기 : d_model * (d_model / num_heads) 
+    -논문의 경우에서는 512 * 64
+    -그럼 (1 * 512) x (512 * 64) = (1 * 64) 로 더 작은 벡터인 Q, K, V 구할 수 있음.
+    -이 때, Q, K, V vector를 만들기 위한 가중치 행렬은 각각 다릅니다.
+    -따라서 512 크기의 하나의 student 단어 벡터에서 서로 다른 3개의 가중치 행렬을 곱해서 64 크기의 서로 다른 3개의 Q, K, V vector를 얻습니다.
+    -이 가중치 행렬은 훈련 과정에서 계속 학습됩니다.
+* "I am a student." 문장의 모든 단어 벡터에 위의 과정을 거치면, I, am, a, student 단어 각각에 대해서 서로 다른 Q, K, V vectors를 구할 수 있습니다.
+
+
+
+## Scaled dot-product Attention 수행
+* 현재까지 Q, K, V 벡터들을 얻은 상황. 이제 기존의 어텐션 메커니즘과 동일한 작업 수행
+* 먼저 각 Q 벡터는 모든 K 벡터들에 대해서 어텐션 스코어 구하고 - 어텐션 분포를 구하고 - 어텐션 분포로부터 가중치를 적용해 모든 V 벡터들을 가중합을 구하고 - 최종 어텐션 값 ( = context vector) 구합니다. [자세한 내용 https://wikidocs.net/22893 참조]
+* 위의 과정을 모든 Q vector에 대해 반복
+* Attention Score를 구하기 위한 Attention 함수는 가장 기본인 내적 dot product 이외에도 종류가 다양합니다. [scaled dot, general, concat, location-base]
+* Transformer 논문에서는 기본 내적에다가 특정 값으로 나누어주는 Attention 함수(Scaled dot-product Attention)를 사용합니다.
+
+![image](https://user-images.githubusercontent.com/44185037/210779353-d4fd4a29-fd30-41de-9eb0-3dad3521d782.png)
+* 위의 수식과 같이 특정값으로 나누어주는 것을 기존의 내적에서 값을 scaling했다고 표현하며, Scaled dot-product Attention이라고 합니다.
+
 - Transformer에는 총 세 가지의 Attetion이 사용됩니다.
 
 ![캡처](https://user-images.githubusercontent.com/44185037/210739551-118fa128-8242-474d-88ac-e7821c336b6e.JPG)
