@@ -11,8 +11,8 @@ Transformer에 대한 구조는 아래와 같습니다.
 ![트랜스포머 구조](https://user-images.githubusercontent.com/44185037/210715269-a08e3167-1f4d-42b1-93e8-1a3eca136a0e.JPG)
 
 - 트랜스포머는 Attention 기법만 사용하기때문에 RNN,CNN은 전혀 사용하지않습니다.
-그러나 기존의 **seq2seq**의 인코더-디코더 구조는 유지합니다.
-인코더에서 입력 시퀀스를 입력받고, 디코더에서 출력 시퀀스를 출력합니다.
+* 그러나 기존의 **seq2seq**의 인코더-디코더 구조는 유지합니다.
+* 인코더에서 입력 시퀀스를 입력받고, 디코더에서 출력 시퀀스를 출력합니다.
 
 * 구조가 위와 같기때문에 문장 안에 포함된 각각의 단어들의 순서에 대한 정보를 주기 어렵습니다.
 * 문장내 각각 단어의 순서에 대한 정보를 알려주기 위해 **Positional encoding**을 사용합니다
@@ -54,7 +54,7 @@ squence가 한번에 병렬로 입력되기때문에 단어 순서에 대한 정
 * 해당 sine & cosine 함수가 positional encoding에서 사용한 이유는 총 3가지가 있습니다.
 
 1. 의미정보가 변질되지 않도록 위치 vector값이 너무 크면 안된다.
-- sine & cosine 함수는 -1 ~ 1 사이를 반복하는 주기함수입니다. 즉 1을 초과하지않고 -1 미만으로 떨어지지 않으므로 값이 너무 커지지 않는 조건을 만족시킵니다.
+    - sine & cosine 함수는 -1 ~ 1 사이를 반복하는 주기함수입니다. 즉 1을 초과하지않고 -1 미만으로 떨어지지 않으므로 값이 너무 커지지 않는 조건을 만족시킵니다.
 
 2. sine & cosine 함수 외에도 일정 구간 내에 있는 함수로는 Sigmoid 함수가 있습니다. 해당 함수를 채택하지않고 sine & cosine 함수를 선택한 이유는 **주기함수**이기 떄문입니다.
 
@@ -63,7 +63,7 @@ squence가 한번에 병렬로 입력되기때문에 단어 순서에 대한 정
 - 위의 그림과 같이 Sigmoid 함수의 경우, 긴 문장의 sequence가 주어진 경우, 위치 vetor 값의 차가 미미해지는 문제가 발생할 수 있습니다. 그러나 sine & cosine 함수의 경우 -1 ~ 1 사이를 주기적으로 반복하기에 긴 문장의 Sequence가 주어진다 해도 위치 vector값의 차가 작지 않게됩니다.
 
 3. 같은 위치의 token은 항상 같은 위치 vector값을 가지고 있어야합니다. 그러나 서로 다른 위치의 token은 위치 vector값이 서로 같지않아야합니다.
-여기서의 문제는 -1 ~ 1 사이를 반복하는 주기함수기 때문에 token들의 위치 vetor값이 같은 경우가 생길 수 있습니다.
+    여기서의 문제는 -1 ~ 1 사이를 반복하는 주기함수기 때문에 token들의 위치 vetor값이 같은 경우가 생길 수 있습니다.
 
 ![캡처](https://user-images.githubusercontent.com/44185037/210730466-10d9b4b4-79b3-402e-bca0-2d76d09da85e.JPG)
 
@@ -91,17 +91,17 @@ squence가 한번에 병렬로 입력되기때문에 단어 순서에 대한 정
 * 이후 유사도가 반영된 값을 모두 가중합하여 최종 리턴합니다(Attention Value)
 
 - 전체 시점에서의 일반화한 Q,K,V의 정의입니다.
- * Q = Querys : 모든 시점의 디코더 셀에서의 은닉 상태들
- * K = Keys : 모든 시점의 인코더 셀의 은닉 상태들
- * V = Values : 모든 시점의 인코더 셀의 은닉 상태들
+    * Q = Querys : 모든 시점의 디코더 셀에서의 은닉 상태들
+    * K = Keys : 모든 시점의 인코더 셀의 은닉 상태들
+    * V = Values : 모든 시점의 인코더 셀의 은닉 상태들
 
 ## self-Attention
 * attention을 자기 자신에게 수행한다는 의미입니다.
 * 기존의 Q,K,V의 경우에는 Q와 K가 서로 출처를 가지고 있으나 self Attention에서의 Q,K,V는 전부 동일합니다.
 - self Attention의 Q,K,V 정의입니다.
- * Q : 입력 문장의 모든 단어 벡터들
- * K : 입력 문장의 모든 단어 벡터들
- * V : 입력 문장의 모든 단어 벡터들
+    * Q : 입력 문장의 모든 단어 벡터들
+    * K : 입력 문장의 모든 단어 벡터들
+    * V : 입력 문장의 모든 단어 벡터들
 
 - 여기에서 하나의 예시로 Self-Attention의 기능을 보고가겠습니다.
 
@@ -113,27 +113,27 @@ squence가 한번에 병렬로 입력되기때문에 단어 순서에 대한 정
 * self attention은 입력 문장 내의 단어들끼리 유사도를 구하면서 'it'이 동물과 연관되어 있을 확률이 높다는 것을 찾아냅니다.
 
 - Transformer에서의 self-attention 동작 mechanism
-* self-attention은 위의 예시들 처럼, 단어들 사이의 유사도를 구할 때 주로 이용하기 때문에 입력 문장의 단어 vectors를 가지고 계산합니다.
-* Transformer에서의 self-attentio 동작 mechanism을 이해하기 위해 먼저 input을 생각해보겠습니다.
-* positional encoding을 거치면 위치 정보가 포함된 최종 input embedding matrix가 만들어집니다.
-* d_model 차원의 초기 입력 input embedding matrix 단어 vector들을 바로 사용하는 것이 아니라 각 단어 vectors로 부터 먼저 Q,K,V vectors를 얻어야합니다.
+    * self-attention은 위의 예시들 처럼, 단어들 사이의 유사도를 구할 때 주로 이용하기 때문에 입력 문장의 단어 vectors를 가지고 계산합니다.
+    * Transformer에서의 self-attentio 동작 mechanism을 이해하기 위해 먼저 input을 생각해보겠습니다.
+    * positional encoding을 거치면 위치 정보가 포함된 최종 input embedding matrix가 만들어집니다.
+    * d_model 차원의 초기 입력 input embedding matrix 단어 vector들을 바로 사용하는 것이 아니라 각 단어 vectors로 부터 먼저 Q,K,V vectors를 얻어야합니다.
 
 - Transformer에는 총 세 가지의 Attetion이 사용됩니다.
 
 ![캡처](https://user-images.githubusercontent.com/44185037/210739551-118fa128-8242-474d-88ac-e7821c336b6e.JPG)
 
 1. Encoder Self-Attention
-* encoder에서 이루어집니다.
-* self-attention : query, key, value가 같습니다. [vetor의 값이 같은 것이 아니라 vector의 출처가 같습니다.]
-* encoder의 self-attention : query = key = value
+    * encoder에서 이루어집니다.
+    * self-attention : query, key, value가 같습니다. [vetor의 값이 같은 것이 아니라 vector의 출처가 같습니다.]
+    * encoder의 self-attention : query = key = value
 
 2. Masked Decoder Self-Attention
-* decoder에서 이루어집니다.
-* decoder의 masked self-attention : query = key = value
+    * decoder에서 이루어집니다.
+    * decoder의 masked self-attention : query = key = value
 
 3. Encoder-Decoder Attention
-* decoder에서 이루어집니다.
-* decoder의 encoder-decoder attention : query = decoder vetor , key=value : encoder vetor
+    * decoder에서 이루어집니다.
+    * decoder의 encoder-decoder attention : query = decoder vetor , key=value : encoder vetor
 
 ![image](https://user-images.githubusercontent.com/44185037/210740768-e3a1f555-c514-42d2-ac9a-9a836f9dd99d.png)
 
