@@ -348,5 +348,4 @@ submission = df_test.loc[:, ["ID", "Target"]]
 정리된 값 제출 결과 0.55012
 이미 종료된 프로젝트지만 약 9등정도의 값을 도출해 냈습니다.
 
-기존 대회 기간동안은 Autogluon을 사용해서 코드를 제출했고 최종 상위 16%로 마무리 짓게 되었습니다.
-![image](https://user-images.githubusercontent.com/44185037/210910892-c1be0398-8e39-4846-b2e4-6b0da1be5d4b.png)
+
