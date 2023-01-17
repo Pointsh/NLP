@@ -53,7 +53,7 @@ ag_train[(ag_train.num_len==2)&(ag_train.Target=='neutral')]
 ```python
 ag_train.drop(ag_train[(ag_train.num_len==2)&(ag_train.Target!='neutral')].index,inplace=True)
 
-_train.drop('num_len',axis=1,inplace=True) #사용했던 num_len열 제거
+ag_train.drop('num_len',axis=1,inplace=True) #사용했던 num_len열 제거
 ```
 autogluon의 hyperparameters 설정
 ```python
