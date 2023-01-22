@@ -53,12 +53,12 @@
 * 이를 python code로 표현하면 아래와 같습니다.
 ```python
 import numpy as np
-def lenven(text1,text2):
+def leven(text1,text2):
     len1 = len(text1)+1
     len2 = len(text2)+1
     sim_array = np.zeros((len1,len2))
-    sim_array[:,0] = np.linespace(0, len1-1, len1)
-    sim_array[0,:] = np.linespace(0, len2-1, len2)
+    sim_array[:,0] = np.linspace(0, len1-1, len1)
+    sim_array[0,:] = np.linspace(0, len2-1, len2)
     for i in range(1,len1):
         for j in range(1,len2):
             add_char = sim_array[i-1,j]+1
@@ -69,5 +69,7 @@ def lenven(text1,text2):
                 mod_char = sim_array[i-1,j-1]+1
             sim_array[i,j] = min([add_char, sub_char, mod_char])
     return sim_array[-1,-1]
-print(leven('나는 너를 좋아해','너는 나 좋아하니'))
+print(leven('나는 너를 좋아해','너는 나   좋아하니'))
 ```
+![image](https://user-images.githubusercontent.com/44185037/213904149-50986c97-ab7d-4b8f-a343-a70c8f09b2fe.png)
+* 이와같이 결과가 나오게 됩니다.
