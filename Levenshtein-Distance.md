@@ -71,4 +71,3 @@ def lenven(text1,text2):
     return sim_array[-1,-1]
 print(leven('나는 너를 좋아해','너는 나 좋아하니'))
 ```
-* 위와같이 표현할 수 있습니다.
